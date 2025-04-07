@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "492679917099",
+    "project_id": "app-tigre-oficial",
+    "storage_bucket": "app-tigre-oficial.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:492679917099:android:9c6a5137a2506db8c4846e",
+        "android_client_info": {
+          "package_name": "br.com.tigrebranco.app_tigre_oficial"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXq2bU67KJU3zRQJGAcsuJ9Q-K3yUscEA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
