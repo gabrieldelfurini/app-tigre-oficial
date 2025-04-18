@@ -28,7 +28,7 @@ class TicketsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1B26),
+      backgroundColor: const Color(0xFF001835),
       body: SafeArea(
         child: Column(
           children: [
@@ -47,17 +47,36 @@ class TicketsScreen extends StatelessWidget {
                 ),
               ),
             ),
-            
+
             // Title
-            const Padding(
-              padding: EdgeInsets.all(16),
-              child: Text(
-                'INGRESSOS',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              child: Column(
+                children: [
+                  const Divider(
+                    color: Color(0xFFFFD700),
+                    thickness: 1,
+                    indent: 32,
+                    endIndent: 32,
+                  ),
+                  const SizedBox(height: 8),
+                  const Text(
+                    'INGRESSOS',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.2,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  const Divider(
+                    color: Color(0xFFFFD700),
+                    thickness: 1,
+                    indent: 32,
+                    endIndent: 32,
+                  ),
+                ],
               ),
             ),
 
@@ -66,32 +85,29 @@ class TicketsScreen extends StatelessWidget {
               child: ListView(
                 padding: const EdgeInsets.all(16),
                 children: const [
-                  TicketCard(
-                    title: 'TÍTULO EVENTO',
-                    date: 'Data',
-                    status: 'Ativo',
-                    isActive: true,
+                  const TicketCard(
+                    date: "10/04/2025",
+                    title: "Título Evento",
+                    status: "Ativo",
+                  ),
+
+                  SizedBox(height: 16),
+                  const TicketCard(
+                    date: "10/04/2025",
+                    title: "Título Evento",
+                    status: "Utilizado",
                   ),
                   SizedBox(height: 16),
-                  TicketCard(
-                    title: 'TÍTULO EVENTO',
-                    date: 'Data',
-                    status: 'Inativo',
-                    isActive: false,
+                  const TicketCard(
+                    date: "10/04/2025",
+                    title: "Título Evento",
+                    status: "Inativo",
                   ),
                   SizedBox(height: 16),
-                  TicketCard(
-                    title: 'TÍTULO EVENTO',
-                    date: 'Data',
-                    status: 'Utilizado',
-                    isActive: false,
-                  ),
-                  SizedBox(height: 16),
-                  TicketCard(
-                    title: 'TÍTULO EVENTO',
-                    date: 'Data',
-                    status: 'Ativo',
-                    isActive: true,
+                  const TicketCard(
+                    date: "10/04/2025",
+                    title: "Título Evento",
+                    status: "Ativo",
                   ),
                 ],
               ),
@@ -102,78 +118,166 @@ class TicketsScreen extends StatelessWidget {
     );
   }
 }
-
 class TicketCard extends StatelessWidget {
-  final String title;
   final String date;
+  final String title;
   final String status;
-  final bool isActive;
 
   const TicketCard({
     super.key,
-    required this.title,
     required this.date,
+    required this.title,
     required this.status,
-    required this.isActive,
   });
+
+  bool get isActive => status.toLowerCase() == 'ativo';
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    const double imageWidth = 160;
+
+    return SizedBox(
       height: 120,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: isActive ? const Color(0xFFFFD700) : Colors.grey,
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    date,
-                    style: TextStyle(
-                      color: isActive ? Colors.black : Colors.white,
-                      fontSize: 14,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    title,
-                    style: TextStyle(
-                      color: isActive ? Colors.black : Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    status,
-                    style: TextStyle(
-                      color: isActive ? Colors.black : Colors.white,
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+      width: double.infinity,
+      child: ClipPath(
+        clipper: TicketClipper(imageWidth: imageWidth),
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 0), // ❗ deixar aqui
+          decoration: BoxDecoration(
+            color:
+                isActive
+                    ? const Color(0xFFFFD700)
+                    : const Color(0xFFFFD700).withOpacity(0.6),
+            borderRadius: BorderRadius.circular(12),
           ),
-          Container(
-            width: 20,
-            decoration: BoxDecoration(
-              color: isActive ? const Color(0xFFFFD700) : Colors.grey,
-              borderRadius: const BorderRadius.only(
-                topRight: Radius.circular(12),
-                bottomRight: Radius.circular(12),
+          child: Row(
+            children: [
+              SizedBox(
+                width: imageWidth,
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: isActive ? Colors.white : Colors.grey[300],
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
               ),
-            ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 12,
+                    horizontal: 8,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        date,
+                        style: TextStyle(color: Colors.grey[900], fontSize: 12),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        title.toUpperCase(),
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        status,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
+}
+
+class TicketClipper extends CustomClipper<Path> {
+  final double imageWidth;
+
+  TicketClipper({required this.imageWidth});
+
+  @override
+  Path getClip(Size size) {
+    const double cornerRadius = 12;
+    const double notchWidth = 8;
+    const double notchHeight = 16;
+
+    // Caminho principal do cartão
+    final base =
+        Path()
+          ..moveTo(0, cornerRadius)
+          ..quadraticBezierTo(0, 0, cornerRadius, 0)
+          ..lineTo(size.width - cornerRadius, 0)
+          ..quadraticBezierTo(size.width, 0, size.width, cornerRadius)
+          ..lineTo(size.width, size.height / 2 - cornerRadius)
+          ..arcToPoint(
+            Offset(size.width, size.height / 2 + cornerRadius),
+            radius: const Radius.circular(cornerRadius),
+            clockwise: false,
+          )
+          ..lineTo(size.width, size.height - cornerRadius)
+          ..quadraticBezierTo(
+            size.width,
+            size.height,
+            size.width - cornerRadius,
+            size.height,
+          )
+          ..lineTo(cornerRadius, size.height)
+          ..quadraticBezierTo(0, size.height, 0, size.height - cornerRadius)
+          ..close();
+
+    // Recortes internos em formato de "retângulo redondo"
+    final topCut =
+        Path()..addRRect(
+          RRect.fromRectAndRadius(
+            Rect.fromCenter(
+              center: Offset(imageWidth, 0),
+              width: notchWidth,
+              height: notchHeight,
+            ),
+            const Radius.circular(4),
+          ),
+        );
+
+    final bottomCut =
+        Path()..addRRect(
+          RRect.fromRectAndRadius(
+            Rect.fromCenter(
+              center: Offset(imageWidth, size.height),
+              width: notchWidth,
+              height: notchHeight,
+            ),
+            const Radius.circular(4),
+          ),
+        );
+
+    // Subtrai os recortes do cartão principal
+    final result = Path.combine(
+      PathOperation.difference,
+      Path.combine(PathOperation.difference, base, topCut),
+      bottomCut,
+    );
+
+    return result;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => true;
 }
