@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../core/mock/mock_user_repository.dart';
 import '../../account/data/user_model.dart';
-
+import './edit_profile_screen.dart';
 class AccountSettingsScreen extends StatefulWidget {
   const AccountSettingsScreen({super.key});
 
@@ -118,11 +118,16 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                   onTap: () {},
                 ),
                 buildOptionTile(
-                    icon: Icons.person,
+                  icon: Icons.person,
                   title: "Editar Perfil",
                   subtitle: "Edite seu Perfil",
                   onTap: () {
-                    // TODO: Navegar para tela de edição de perfil
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                      builder: (context) => const EditProfileScreen(),
+                      ),
+                    );
                   },
                 ),
                 buildOptionTile(
