@@ -1,3 +1,5 @@
+import 'package:app_tigre_oficial/features/account/presentation/register/register_home.dart';
+import 'package:app_tigre_oficial/features/account/presentation/tickets.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../../../core/mock/mock_user_repository.dart';
@@ -103,7 +105,14 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                   icon: Icons.confirmation_num,
                   title: "Ingressos",
                   subtitle: "Ingressos comprados",
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                      builder: (context) => const TicketsScreen(),
+                      ),
+                    );
+                  },
                 ),
                 buildOptionTile(
                   icon: Icons.badge,
@@ -135,7 +144,13 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                   title: "Cadastros",
                   subtitle: "Cadastrar Atividades",
                   onTap: () {
-                    // TODO: Navegar para tela de edição de perfil
+                    // Navigator.pushNamed(context, '/register_home');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                      builder: (context) => const RegisterAccountScreen(),
+                      ),
+                    );
                   },
                 ),
               ],
